@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:45:34 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/13 13:43:35 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/14 10:07:51 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,35 @@ int	ft_atoi(const char *str)
 	return (number * sign);
 }
 
-long int	ft_atol(const char *str)
+int	is_number(char *str)
 {
-	int			i;
-	int			sign;
-	long int	number;
+	int i = 0;
 
-	i = 0;
-	sign = 1;
-	number = 0;
-	if (str_is_digit(str))
-		return (-1);
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-		|| str[i] == '\r' || str[i] == '\f' || str[i] == '\v')
+	if (!str || !str[0])
+		return (0);
+	if (str[i] == '+' || str[i] == '-')
 		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+long	ft_atol(const char *str)
+{
+	long	result;
+	int		sign;
+	int		i;
+
+	result = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
 		if (str[i] == '-')
 			sign = -1;
@@ -59,29 +73,19 @@ long int	ft_atol(const char *str)
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
-		number = number * 10 + (str[i] - '0');
+		result = result * 10 + (str[i] - '0');
+		if (result * sign > INT_MAX || result * sign < INT_MIN)
+			return (LONG_MAX);
 		i++;
 	}
-	return (number * sign);
+	return (result * sign);
 }
 
-int	str_is_digit(const char *str)
+unsigned int	get_current_time(void)
 {
-	int i;
+	struct timeval	time;
 
-	i = 0;
-	while (str[i])
-	{
-		if (!is_digit(str[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	is_digit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	if (gettimeofday(&time, NULL) == -1)
+		write(2, "gettimeofday() error\n", 22);
+	return (time.tv_sec * 1000 + time.tv_usec / 1000);
 }
