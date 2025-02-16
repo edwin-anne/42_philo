@@ -9,7 +9,7 @@ CC	= cc
 CFLAGS	=  -Wall -Wextra -Werror -I$(INC)
 RM	= rm -f
 
-SRCS = $(SRC_DIR)/error.c $(SRC_DIR)/init.c  $(SRC_DIR)/main.c  $(SRC_DIR)/monitor.c $(SRC_DIR)/clean.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils2.c  $(SRC_DIR)/execute.c  
+SRCS = $(SRC_DIR)/error.c $(SRC_DIR)/init.c  $(SRC_DIR)/main.c  $(SRC_DIR)/monitor.c $(SRC_DIR)/monitor2.c $(SRC_DIR)/clean.c $(SRC_DIR)/utils.c $(SRC_DIR)/utils2.c  $(SRC_DIR)/execute.c  
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJS_DIR)/%.o)
 

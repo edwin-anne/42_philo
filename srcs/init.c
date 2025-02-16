@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/13 12:57:30 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/14 10:26:17 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/16 10:19:30 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,20 @@ void	init_philos(t_philo *philos, t_global *program, pthread_mutex_t *forks,
 
 int	create_mutex_global(t_global *global, t_philo *philos)
 {
-	global->dead = 0;
+	ft_memset(global, 0, sizeof(t_global));
 	global->philos = philos;
 	if (pthread_mutex_init(&global->dead_lock, NULL) != 0)
 		return (0);
 	if (pthread_mutex_init(&global->meal_lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&global->dead_lock);
 		return (0);
+	}
 	if (pthread_mutex_init(&global->write_lock, NULL) != 0)
+	{
+		pthread_mutex_destroy(&global->dead_lock);
+		pthread_mutex_destroy(&global->meal_lock);
 		return (0);
+	}
 	return (1);
 }

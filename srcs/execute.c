@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:28:43 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/14 11:40:48 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/14 20:27:49 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	execute_single_philo(t_philo *philo)
 
 int	execute_multiple_philo(t_global global, pthread_mutex_t *forks)
 {
-	int		i;
-	t_philo	*philos;
+	int			i;
+	t_philo		*philos;
 	pthread_t	monitor;
 
 	philos = global.philos;
@@ -32,7 +32,8 @@ int	execute_multiple_philo(t_global global, pthread_mutex_t *forks)
 		return (1);
 	while (i < philos[0].num_of_philos)
 	{
-		if (pthread_create(&philos[i].thread, NULL, &history_philo, &philos[i]) != 0)
+		if (pthread_create(&philos[i].thread, NULL,
+				&history_philo, &philos[i]) != 0)
 			return (1);
 		i++;
 	}

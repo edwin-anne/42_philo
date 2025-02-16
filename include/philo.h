@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 09:20:11 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/14 11:38:42 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/16 10:23:28 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_philo
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 }					t_philo;
-typedef struct	s_global
+
+typedef struct s_global
 {
 	int				dead;
 	pthread_mutex_t	meal_lock;
@@ -49,39 +50,49 @@ typedef struct	s_global
 	t_philo			*philos;
 }	t_global;
 
-
 /* utils.c */
-int         	ft_atoi(const char *str);
-int         	is_number(char *str);
-long        	ft_atol(const char *str);
+int				ft_atoi(const char *str);
+int				is_number(char *str);
+long			ft_atol(const char *str);
 unsigned int	get_current_time(void);
 
 /* utils2.c */
 int				ft_usleep(int milliseconds);
+int				print_status(t_philo *philo, char *str);
+void			*ft_memset(void *s, int c, size_t n);
 
 /* error.c */
-int         	ft_error(char *str);
+int				ft_error(char *str);
 
 /* init.c */
-int         	check(int argc, char **argv);
+int				check(int argc, char **argv);
 int				init_forks(pthread_mutex_t *forks, char **argv);
 void			insert_global(t_philo *philo, char **argv);
-void			init_philos(t_philo *philos, t_global *program, pthread_mutex_t *forks,
-					char **argv);
+void			init_philos(t_philo *philos, t_global *program,
+					pthread_mutex_t *forks, char **argv);
 int				create_mutex_global(t_global *global, t_philo *philos);
 
 /* main.c */
-int         	main(int argc, char **argv);
+int				main(int argc, char **argv);
 
 /* execute.c */
 void			execute_single_philo(t_philo *philo);
 int				execute_multiple_philo(t_global global, pthread_mutex_t *forks);
 
 /* clean.c */
-void		clean(t_global *global, pthread_mutex_t *forks);
+void			clean(t_global *global, pthread_mutex_t *forks);
 
 /* monitor.c */
-void		*statut_philo(void *arg);
-void		*history_philo(void *arg);
+int				check_death(t_philo *philo);
+int				check_meals(t_philo *philo);
+void			*statut_philo(void *arg);
+void			*history_philo(void *arg);
+
+/* monitor2.c */
+int				check_death(t_philo *philo);
+int				take_forks(t_philo *philo);
+void			release_forks(t_philo *philo);
+void			eat_meal(t_philo *philo);
+int				philo_eat(t_philo *philo);
 
 #endif

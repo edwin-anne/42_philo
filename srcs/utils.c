@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 15:45:34 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/14 10:07:51 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/14 20:28:35 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,9 @@ int	ft_atoi(const char *str)
 
 int	is_number(char *str)
 {
-	int i = 0;
+	int	i;
 
+	i = 0;
 	if (!str || !str[0])
 		return (0);
 	if (str[i] == '+' || str[i] == '-')
