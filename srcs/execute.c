@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:28:43 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/14 20:27:49 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/17 13:03:35 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 
 void	execute_single_philo(t_philo *philo)
 {
-	printf("%u %d has taken a fork\n", get_current_time() - philo->start_time,
+	printf("[%u] [%d] - has taken a fork 🍴\n",
+		get_current_time() - philo->start_time,
 		philo->id);
 	ft_usleep(philo->time_to_die);
-	printf("%u %d died\n", get_current_time() - philo->start_time, philo->id);
+	printf("[%u] [%d] - died 💀\n",
+		get_current_time() - philo->start_time, philo->id);
 }
 
 int	execute_multiple_philo(t_global global, pthread_mutex_t *forks)

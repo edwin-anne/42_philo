@@ -45,16 +45,16 @@ int	print_status(t_philo *philo, char *str)
 	return (1);
 }
 
-void    *ft_memset(void *s, int c, size_t n)
+void	*ft_memset(void *s, int c, size_t n)
 {
-        unsigned char   *p;
+	unsigned char	*p;
 
-        p = s;
-        while (n > 0)
-        {
-                *p = c;
-                p++;
-                n--;
-        }
-        return (s);
+	p = s;
+	while (n > 0)
+	{
+		*p = c;
+		p++;
+		n--;
+	}
+	return (s);
 }

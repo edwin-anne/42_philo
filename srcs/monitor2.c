@@ -6,7 +6,7 @@
 /*   By: Edwin ANNE <eanne@student.42lehavre.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 20:34:49 by Edwin ANNE        #+#    #+#             */
-/*   Updated: 2025/02/16 09:48:30 by Edwin ANNE       ###   ########.fr       */
+/*   Updated: 2025/02/17 13:01:05 by Edwin ANNE       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,23 @@
 
 int	check_death(t_philo *philo)
 {
+	unsigned int	current_time;
+
 	pthread_mutex_lock(philo->dead_lock);
+	current_time = get_current_time();
 	if (*philo->dead)
 	{
 		pthread_mutex_unlock(philo->dead_lock);
+		return (1);
+	}
+	if (current_time - philo->last_meal >= philo->time_to_die)
+	{
+		*philo->dead = 1;
+		pthread_mutex_unlock(philo->dead_lock);
+		pthread_mutex_lock(philo->write_lock);
+		printf("[%u] [%d] - died 💀\n",
+			current_time - philo->start_time, philo->id);
+		pthread_mutex_unlock(philo->write_lock);
 		return (1);
 	}
 	pthread_mutex_unlock(philo->dead_lock);
